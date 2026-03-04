@@ -54,10 +54,10 @@ def main(data_dir, output_dir):
     output_dir.mkdir(parents=True, exist_ok=True)
     with open(output_dir / "metadata.json", "w+") as f:
         json.dump(dict(train_time=train_time, test_time=test_time), f)
-    # Sauvegarde des prédictions en .npy pour le scoring_program
+    # Sauvegarde des prédictions en .csv pour le scoring_program
     for eval_set in EVAL_SETS:
-        filepath = output_dir / f"{eval_set}_predictions.npy"
-        np.save(filepath, res[eval_set])
+        filepath = output_dir / f"{eval_set}_predictions.csv"
+        pd.DataFrame(res[eval_set]).to_csv(filepath, index=False)
     print()
     print("Ingestion Program finished. Moving on to scoring")
 

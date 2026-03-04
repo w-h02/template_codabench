@@ -1,6 +1,10 @@
 version: 2
-title: Templat competition - Dummy regression
-description: Dummy regression task
+title: Prédiction de l'Énergie de Formation pour la Découverte de Nouveaux Matériaux
+description: >
+  Prédire l'énergie de formation (Ef) de structures cristallines à partir des
+  positions 3D des atomes. Un matériau est stable si Ef est négative et basse.
+  L'objectif est de remplacer la DFT (simulation quantique lente) par un modèle
+  d'IA capable de prédire cette énergie en quelques millisecondes.
 image: logo.png
 registration_auto_approve: False  # if True, do not require approval from admin to join the comp
 
@@ -15,8 +19,8 @@ pages:
 
 tasks:
   - index: 0
-    name: Developement Task
-    description: 'Tune models with training data, test against examples contained in public test data'
+    name: Tâche de Développement
+    description: 'Entraîner un modèle de régression sur les structures cristallines (positions 3D des atomes) pour prédire leur énergie de formation (eV/atome).'
     input_data: dev_phase/input_data/
     reference_data: dev_phase/reference_data/
     ingestion_program: ingestion_program/
@@ -31,9 +35,9 @@ solutions:
 
 phases:
   - name: Development Phase
-    description: 'Development phase: tune your models.'
-    start: 10-07-2025
-    end: 03-31-2026
+    description: 'Phase de développement : affinez vos modèles sur les données d''entraînement et évaluez-les sur le jeu de test public.'
+    start: 03-08-2026
+    end: 09-31-2026
     tasks:
       - 0
 
@@ -41,11 +45,11 @@ leaderboards:
   - title: Results
     key: main
     columns:
-      - title: Test MAE
+      - title: Test MAE (eV/atome)
         key: test
         index: 0
-        sorting: desc
-      - title: Private Test MAE
+        sorting: asc
+      - title: Private Test MAE (eV/atome)
         key: private_test
         index: 1
         sorting: asc

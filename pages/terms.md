@@ -1,18 +1,17 @@
-# Terms and Conditions
+# Conditions de Participation
 
-## Lorem Ipsum
+## Règles générales
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+- La participation est ouverte à tous.
+- Chaque participant doit soumettre son propre code. Le plagiat entraîne la disqualification.
+- Les soumissions doivent respecter le format décrit sur la page "Participation".
 
-## Sed ut perspiciatis
+## Données
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae 
-ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit 
-aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam 
-est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore 
-et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, 
-nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae 
-consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+- Les données fournies (structures cristallines et énergies de formation) sont destinées exclusivement à cette compétition.
+- Il est interdit d'utiliser des données externes non déclarées.
+
+## Évaluation
+
+- Le classement final est basé sur la MAE (Mean Absolute Error) calculée sur le jeu de test **privé**.
+- Les organisateurs se réservent le droit de vérifier le code des meilleures soumissions.

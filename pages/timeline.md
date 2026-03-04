@@ -1,11 +1,9 @@
 # Timeline
 
-## Development phase
-This phase should be used to tune your models, testing against a small
-set of testing data
+## Phase de Développement (08 mars 2026 — 31 septembre 2026)
 
-## Final phase
-Resubmit your preferred submission from the development phase to test
-against a new set of testing data. Your model will be trained against
-the same set of training data as in the development phase. You may only
-make one submission to this phase, so choose wisely.
+Utilisez cette phase pour explorer les données, expérimenter vos modèles et optimiser vos hyperparamètres. Vos prédictions sont évaluées sur le **jeu de test public** (10% des données). Le leaderboard est visible par tous.
+
+## Phase Finale (test privé)
+
+À la clôture de la phase de développement, votre meilleure soumission est automatiquement réévaluée sur le **jeu de test privé** (10% des données, inconnu pendant le développement). Ce score détermine le classement final.
