@@ -1,9 +1,9 @@
 # Timeline
 
-## Phase de Développement (08 mars 2026 — 31 septembre 2026)
+## Development Phase (March 8, 2026 — March 31, 2026)
 
-Utilisez cette phase pour explorer les données, expérimenter vos modèles et optimiser vos hyperparamètres. Vos prédictions sont évaluées sur le **jeu de test public** (10% des données). Le leaderboard est visible par tous.
+Use this phase to explore the data, experiment with models, and tune hyperparameters. Your predictions are evaluated on the **public test set** (10% of the data). The leaderboard is visible to all participants.
 
-## Phase Finale (test privé)
+## Final Phase (private test)
 
-À la clôture de la phase de développement, votre meilleure soumission est automatiquement réévaluée sur le **jeu de test privé** (10% des données, inconnu pendant le développement). Ce score détermine le classement final.
+At the end of the development phase, your best submission is automatically re-evaluated on the **private test set** (10% of the data, unseen during development). This score determines the final ranking.

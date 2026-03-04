@@ -1,17 +1,17 @@
-# Conditions de Participation
+# Terms and Conditions
 
-## Règles générales
+## General rules
 
-- La participation est ouverte à tous.
-- Chaque participant doit soumettre son propre code. Le plagiat entraîne la disqualification.
-- Les soumissions doivent respecter le format décrit sur la page "Participation".
+- Participation is open to all registered users.
+- Each participant must submit their own code. Plagiarism results in disqualification.
+- Submissions must follow the format described on the "Participation" page.
 
-## Données
+## Data usage
 
-- Les données fournies (structures cristallines et énergies de formation) sont destinées exclusivement à cette compétition.
-- Il est interdit d'utiliser des données externes non déclarées.
+- The provided data (crystal structures and formation energies) is intended exclusively for this competition.
+- The use of undeclared external data is not allowed.
 
-## Évaluation
+## Evaluation
 
-- Le classement final est basé sur la MAE (Mean Absolute Error) calculée sur le jeu de test **privé**.
-- Les organisateurs se réservent le droit de vérifier le code des meilleures soumissions.
+- The final ranking is based on the MAE (Mean Absolute Error) computed on the **private test set**.
+- Organizers reserve the right to review the code of top submissions.

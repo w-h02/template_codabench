@@ -1,30 +1,30 @@
-# Comment participer
+# How to participate
 
-## Objectif
+## Objective
 
-Soumettez un fichier `submission.py` contenant une fonction `get_model()` qui retourne un modèle compatible avec l'API scikit-learn. Le modèle sera entraîné et évalué automatiquement sur les structures cristallines.
+Submit a `submission.py` file containing a `get_model()` function that returns a scikit-learn compatible model. The model will be automatically trained and evaluated on crystal structures.
 
-## Format des données
+## Data format
 
-- **X** : tableau numpy ragged (allow_pickle=True) — chaque élément est un array de forme `(n_atomes, 3)` contenant les positions 3D des atomes d'un cristal (nombre d'atomes variable selon le cristal)
-- **y** : tableau numpy 1D contenant l'énergie de formation en **eV/atome** (valeurs négatives = matériau stable)
+- **X**: numpy ragged array (loaded with `allow_pickle=True`) — each element is an array of shape `(n_atoms, 3)` containing the 3D atomic positions of a crystal (variable number of atoms per crystal)
+- **y**: 1D numpy array containing the formation energy in **eV/atom** (negative values = stable material)
 
-## Format de soumission
+## Submission format
 
-Votre fichier `submission.py` doit exposer une fonction `get_model()` :
+Your `submission.py` must expose a `get_model()` function:
 
 ```python
 def get_model():
-    # Retourne un modèle compatible scikit-learn (fit / predict)
-    return VotreModele()
+    # Returns a scikit-learn compatible model (fit / predict)
+    return YourModel()
 ```
 
-Le modèle doit implémenter :
-- `model.fit(X_train, y_train)` — entraînement
-- `model.predict(X_test)` — prédiction des énergies de formation
+The model must implement:
+- `model.fit(X_train, y_train)` — training
+- `model.predict(X_test)` — predicting formation energies
 
-## Métrique d'évaluation
+## Evaluation metric
 
-La performance est mesurée par la **MAE (Mean Absolute Error)** en eV/atome. Un score plus bas est meilleur.
+Performance is measured by **MAE (Mean Absolute Error)** in eV/atom. A lower score is better.
 
-Voir la page "Seed" pour un exemple de point de départ.
+See the "Seed" page for a working starter example.

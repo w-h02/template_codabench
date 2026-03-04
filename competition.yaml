@@ -1,10 +1,10 @@
 version: 2
 title: Prédiction de l'Énergie de Formation pour la Découverte de Nouveaux Matériaux
 description: >
-  Prédire l'énergie de formation (Ef) de structures cristallines à partir des
-  positions 3D des atomes. Un matériau est stable si Ef est négative et basse.
-  L'objectif est de remplacer la DFT (simulation quantique lente) par un modèle
-  d'IA capable de prédire cette énergie en quelques millisecondes.
+  Predict the formation energy (Ef) of crystal structures from the 3D positions
+  of their atoms. A material is stable when Ef is negative and low.
+  The goal is to replace DFT (slow quantum simulation) with an AI model
+  capable of predicting this energy in milliseconds.
 image: logo.png
 registration_auto_approve: False  # if True, do not require approval from admin to join the comp
 
@@ -19,8 +19,8 @@ pages:
 
 tasks:
   - index: 0
-    name: Tâche de Développement
-    description: 'Entraîner un modèle de régression sur les structures cristallines (positions 3D des atomes) pour prédire leur énergie de formation (eV/atome).'
+    name: Development Task
+    description: 'Train a regression model on crystal structures (3D atomic positions) to predict their formation energy (eV/atom).'
     input_data: dev_phase/input_data/
     reference_data: dev_phase/reference_data/
     ingestion_program: ingestion_program/
@@ -35,7 +35,7 @@ solutions:
 
 phases:
   - name: Development Phase
-    description: 'Phase de développement : affinez vos modèles sur les données d''entraînement et évaluez-les sur le jeu de test public.'
+    description: 'Development phase: tune your models on training data and evaluate them on the public test set.'
     start: 03-08-2026
     end: 09-31-2026
     tasks:
