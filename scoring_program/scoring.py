@@ -1,16 +1,15 @@
 import json
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 EVAL_SETS = ["test", "private_test"]
 
 
-def compute_accuracy(predictions, targets):
-    # Make sure there is no NaN, as pandas ignores them in mean computation
-    predictions = predictions.fillna(-10).values
-    # Return mean of correct predictions
-    return (predictions == targets.values).mean()
+def compute_mae(predictions, targets):
+    predictions = predictions.fillna(np.nan).values.flatten()
+    return float(np.abs(predictions - targets).mean())
 
 
 def main(reference_dir, prediction_dir, output_dir):
@@ -21,11 +20,11 @@ def main(reference_dir, prediction_dir, output_dir):
         predictions = pd.read_csv(
             prediction_dir / f'{eval_set}_predictions.csv'
         )
-        targets = pd.read_csv(
-            reference_dir / f'{eval_set}_labels.csv'
+        targets = np.load(
+            reference_dir / f'y_{eval_set}.npy'
         )
 
-        scores[eval_set] = float(compute_accuracy(predictions, targets))
+        scores[eval_set] = float(compute_mae(predictions, targets))
 
     # Add train and test times in the score
     json_durations = (prediction_dir / 'metadata.json').read_text()
