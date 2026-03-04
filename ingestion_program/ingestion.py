@@ -2,7 +2,7 @@ import json
 import sys
 import time
 from pathlib import Path
-
+import numpy as np
 import pandas as pd
 
 
@@ -12,14 +12,13 @@ EVAL_SETS = ["test", "private_test"]
 def evaluate_model(model, X_test):
 
     y_pred = model.predict(X_test)
-    return pd.DataFrame(y_pred)
+    return y_pred # On retourne l'array numpy directement
 
 
 def get_train_data(data_dir):
     data_dir = Path(data_dir)
-    training_dir = data_dir / "train"
-    X_train = pd.read_csv(training_dir / "train_features.csv")
-    y_train = pd.read_csv(training_dir / "train_labels.csv")
+    X_train = np.load(data_dir / "X_train.npy", allow_pickle=True)
+    y_train = np.load(data_dir / "y_train.npy", allow_pickle=True)
     return X_train, y_train
 
 
@@ -42,7 +41,9 @@ def main(data_dir, output_dir):
     start = time.time()
     res = {}
     for eval_set in EVAL_SETS:
-        X_test = pd.read_csv(data_dir / eval_set / f"{eval_set}_features.csv")
+        # Chargement des fichiers X_test.npy et X_private_test.npy
+        X_test_path = data_dir / f"X_{eval_set}.npy"
+        X_test = np.load(X_test_path, allow_pickle=True)
         res[eval_set] = evaluate_model(model, X_test)
     test_time = time.time() - start
     print("-" * 10)
@@ -53,9 +54,10 @@ def main(data_dir, output_dir):
     output_dir.mkdir(parents=True, exist_ok=True)
     with open(output_dir / "metadata.json", "w+") as f:
         json.dump(dict(train_time=train_time, test_time=test_time), f)
+    # Sauvegarde des prédictions en .npy pour le scoring_program
     for eval_set in EVAL_SETS:
-        filepath = output_dir / f"{eval_set}_predictions.csv"
-        res[eval_set].to_csv(filepath, index=False)
+        filepath = output_dir / f"{eval_set}_predictions.npy"
+        np.save(filepath, res[eval_set])
     print()
     print("Ingestion Program finished. Moving on to scoring")
 
