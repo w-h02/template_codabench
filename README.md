@@ -1,98 +1,144 @@
+<div align="center">
+
 # Formation Energy Prediction for Materials Discovery
 
-Codabench Challenge — M2 Data Science Group Project
+**M2 Data Science — Group Project — Codabench Challenge**
 
-**Team 23:**
-- OUALY Ossama ([@OUALYoss](https://github.com/OUALYoss))
-- BAMOU Ilyass ([@IlyassBamou](https://github.com/IlyassBamou))
-- Wissal HAOUAMI ([@w-h02](https://github.com/w-h02))
-- Rayen ZARGUI ([@zarguirayen](https://github.com/zarguirayen))
-- Mahdi Hadj Taieb ([@mahdiht](https://github.com/mahdiht))
-- Rayen Mansour ([@Rayen-MANSOUR](https://github.com/Rayen-MANSOUR))
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-compatible-F7931E?logo=scikit-learn&logoColor=white)
+![Metric](https://img.shields.io/badge/Metric-MAE%20(eV%2Fatom)-27AE60)
+![Task](https://img.shields.io/badge/Task-Regression-8E44AD)
+![Data](https://img.shields.io/badge/Source-Materials%20Project-1A5276)
+
+</div>
 
 ---
 
 ## Scientific context
 
-The discovery of new crystalline materials drives technological innovation: high-density batteries, more efficient solar panels, superconducting materials.
+The discovery of new crystalline materials drives technological innovation: high-density batteries, more efficient solar panels, and superconducting materials.
 
-A material is considered **stable** when its formation energy (Ef) is **negative and low** (in eV/atom). Traditionally, this energy is computed via **DFT (Density Functional Theory)**, a highly accurate but extremely slow quantum simulation (several hours per structure).
+A material is **stable** when its formation energy **Ef is negative and low** (eV/atom).
+Traditionally, Ef is computed via **DFT (Density Functional Theory)** — highly accurate but extremely slow (several hours per structure).
 
-**Challenge goal**: train an AI model capable of predicting the formation energy of a crystal structure in milliseconds, using only the 3D positions of its atoms.
+> **Challenge goal**: train an AI model to predict formation energy in **milliseconds**, using only the 3D positions of atoms.
 
 ---
 
-## Data
+## Team 23
+
+| Name | GitHub |
+|---|---|
+
+| BAMOU Ilyass | [@IlyassBamou](https://github.com/IlyassBamou) |
+| HAOUAMI Wissal | [@w-h02](https://github.com/w-h02) |
+| HADJ TAIEB Mahdi | [@mahdiht](https://github.com/mahdiht) |
+| MANSOUR Rayen | [@Rayen-MANSOUR](https://github.com/Rayen-MANSOUR) |
+| OUALY Ossama | [@OUALYoss](https://github.com/OUALYoss) |
+| ZARGUI Rayen | [@zarguirayen](https://github.com/zarguirayen) |
+
+---
+
+## Dataset
 
 **Source**: [Materials Project API](https://next-gen.materialsproject.org/api)
 
-The dataset contains **10,000 crystal structures** stored as numpy ragged arrays. Each structure is an array of shape `(n_atoms,)` with the following fields:
+| Property | Value |
+|---|---|
+| Number of structures | 10,000 |
+| Atoms per structure | 2 – 20 (mean ≈ 11) |
+| Distinct elements | 82 |
+| Target (Ef) range | −5.15 to +5.47 eV/atom |
+| Target mean | −1.34 eV/atom |
+
+Each structure is a numpy ragged array with three fields:
 
 | Field | Description |
 |---|---|
 | `Z` | Atomic number |
-| `coords` | 3D atomic positions (in Å) |
-| `nom` | Chemical element symbol |
+| `coords` | 3D positions in Ångströms |
+| `nom` | Element symbol (e.g. `"Fe"`, `"O"`) |
 
-Dataset statistics:
-- Atoms per structure: 2 to 20 (mean ≈ 11)
-- Distinct elements: 82
-- Formation energy (target): from −5.15 to +5.47 eV/atom (mean ≈ −1.34)
-
-**Split**: 80% train / 10% public test / 10% private test, grouped by **chemical formula** to prevent data leakage between train and test sets.
+**Split strategy**: 80% train / 10% public test / 10% private test, **grouped by chemical formula** to prevent data leakage.
 
 ---
 
-## Evaluation metric
+## Evaluation
 
-**MAE (Mean Absolute Error)** in eV/atom — lower is better.
+```
+MAE = mean( |y_pred − y_true| )   [eV/atom]   ← lower is better
+```
 
-MAE was chosen because:
-- it is directly interpretable in eV/atom,
-- it is robust to outliers compared to squared-error metrics,
-- it is the standard metric for regression tasks in materials science.
+MAE was chosen for its direct interpretability in eV/atom and robustness to outliers.
 
 ---
 
 ## Repository structure
 
-- `competition.yaml`: Codabench competition configuration (phases, tasks, leaderboard)
-- `ingestion_program/`: loads submissions, trains the model and generates predictions
-- `scoring_program/`: computes MAE between predictions and reference labels
-- `solution/`: example baseline submission (XGBoost + geometric feature extraction)
-- `tools/setup_data.py`: script to load and split data from `.npy` files
-- `tools/create_bundle.py`: generates the `.zip` bundle for Codabench upload
-- `pages/`: markdown files rendered as web pages on the challenge platform
-- `starting_kit/`: exploration notebook and baseline for participants
+```
+.
+├── competition.yaml          # Codabench competition config
+├── ingestion_program/        # Loads submission, trains model, generates predictions
+├── scoring_program/          # Computes MAE vs. reference labels
+├── solution/                 # Baseline submission (XGBoost + geometric features)
+├── starting_kit/             # Exploration notebook + baseline for participants
+├── pages/                    # HTML/CSS competition pages
+└── tools/
+    ├── setup_data.py         # Load & split data from .npy files
+    ├── create_bundle.py      # Build the Codabench .zip bundle
+    ├── Dockerfile            # Docker image for ingestion/scoring
+    └── run_docker.py         # Helper to build & test locally
+```
 
 ---
 
 ## Running locally
 
-**Generate data:**
+<details>
+<summary><b>1. Generate data</b></summary>
+
 ```bash
 python tools/setup_data.py
 ```
+</details>
 
-**Test ingestion:**
+<details>
+<summary><b>2. Test ingestion</b></summary>
+
 ```bash
 python ingestion_program/ingestion.py \
   --data-dir dev_phase/input_data/ \
   --output-dir ingestion_res/ \
   --submission-dir solution/
 ```
+</details>
 
-**Test scoring:**
+<details>
+<summary><b>3. Test scoring</b></summary>
+
 ```bash
 python scoring_program/scoring.py \
   --reference-dir dev_phase/reference_data/ \
   --prediction-dir ingestion_res/ \
   --output-dir scoring_res/
 ```
+</details>
 
-**Create Codabench bundle:**
+<details>
+<summary><b>4. Build & upload bundle</b></summary>
+
 ```bash
 python tools/create_bundle.py
 ```
 
-Then upload `bundle.zip` on [codabench.org](https://www.codabench.org/competitions/upload/).
+Upload `bundle.zip` on [codabench.org/competitions/upload](https://www.codabench.org/competitions/upload/).
+</details>
+
+<details>
+<summary><b>5. Test with Docker</b></summary>
+
+```bash
+pip install docker
+python tools/run_docker.py
+```
+</details>
