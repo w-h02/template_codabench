@@ -3,7 +3,13 @@ from xgboost import XGBRegressor
 
 
 class CrystalFeatureExtractor:
-
+    """
+        Converts variable-size crystal coordinates into fixed-size features.
+        In this case the features are:
+            - the mean of coordinates (x, y, z) and their std variations
+            - the centroid of atoms: mean of their coordinates, elmnt in (x_mean, y_mean, y_mean)
+            - the distances of the atoms to the centroid
+    """
     def transform(self, X):
         features = []
 
@@ -54,4 +60,4 @@ class CrystalModel:
 
 
 def get_model():
-    return CrystalModel()
+    return CrystalModel()   
