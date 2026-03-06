@@ -1,5 +1,5 @@
 version: 2
-title: Prédiction de l'Énergie de Formation pour la Découverte de Nouveaux Matériaux - DATACAMP 2025
+title: Crystal Formation Energy Challenge - DATACAMP 2025
 description: >
   Predict the formation energy (Ef) of crystal structures from the 3D positions
   of their atoms. A material is stable when Ef is negative and low.
