@@ -1,13 +1,12 @@
 from pathlib import Path
 import numpy as np
-import pandas as pd
 from sklearn.model_selection import train_test_split
 
-PHASE = 'dev_phase'
+ROOT_DIR = Path(__file__).parent.parent
 
 # Dossiers cibles pour Codabench
-DATA_DIR = Path(PHASE) / 'input_data'
-REF_DIR = Path(PHASE) / 'reference_data'
+DATA_DIR = ROOT_DIR / 'dev_phase' / 'input_data'
+REF_DIR  = ROOT_DIR / 'dev_phase' / 'reference_data'
 
 def save_data(data, filepath):
     """Sauvegarde les données au format .npy (indispensable pour tes Ragged Arrays)"""
@@ -24,10 +23,10 @@ if __name__ == "__main__":
     # 1. CHARGEMENT DE TES VRAIES DONNÉES
     print("Chargement des cristaux réels...")
     try:
-        X = np.load("C:\\Users\\hp\\Desktop\\github\\template_codabench\\X_data_ragged.npy", allow_pickle=True)
-        y = np.load("C:\\Users\\hp\\Desktop\\github\\template_codabench\\y_data.npy")
+        X = np.load(ROOT_DIR / "X_data_ragged.npy", allow_pickle=True)
+        y = np.load(ROOT_DIR / "y_data.npy")
     except FileNotFoundError:
-        print("Erreur : Les fichiers X_data_ragged.npy ou y_data.npy sont introuvables !")
+        print("Erreur : Les fichiers X_data_ragged.npy ou y_data.npy sont introuvables à la racine du projet !")
         exit()
 
     # 2. SPLIT DES DONNÉES (Train 80% / Test 10% / Private Test 10%)

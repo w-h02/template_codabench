@@ -1,117 +1,90 @@
-<style>
-  .page { font-family: 'Segoe UI', Arial, sans-serif; color: #2d3436; max-width: 860px; margin: auto; }
-  .hero {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
-    border-radius: 12px; padding: 30px 40px; color: white; margin-bottom: 28px;
-  }
-  .hero h1 { font-size: 1.8em; margin: 0 0 8px 0; }
-  .hero p  { margin: 0; opacity: 0.85; font-size: 1.05em; }
-  .section h2 {
-    font-size: 1.2em; color: #0a3d62; border-left: 4px solid #00b4d8;
-    padding-left: 12px; margin: 28px 0 12px 0;
-  }
-  .idea-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-  .idea-card {
-    background: #f0f8ff; border: 1px solid #c8e4f5; border-radius: 8px;
-    padding: 14px 16px; font-size: 0.9em;
-  }
-  .idea-card strong { color: #0a3d62; display: block; margin-bottom: 4px; }
-  pre {
-    background: #1e2a38; color: #abb2bf; border-radius: 10px; padding: 20px;
-    overflow-x: auto; font-size: 0.87em; line-height: 1.65; margin: 0;
-  }
-  .keyword { color: #c678dd; }
-  .fn      { color: #61afef; }
-  .string  { color: #98c379; }
-  .comment { color: #5c6370; font-style: italic; }
-  .code-block { border-radius: 10px; overflow: hidden; margin-bottom: 24px; }
-  .code-header {
-    background: #0a3d62; color: #cdd6f4; padding: 8px 18px;
-    font-size: 0.82em; letter-spacing: 0.05em; font-family: monospace;
-  }
-  .tip {
-    background: #e8f8f5; border: 1px solid #a9dfbf; border-radius: 8px;
-    padding: 14px 18px; margin-bottom: 12px; font-size: 0.92em;
-  }
-  .tip strong { color: #1e8449; }
-</style>
+<div style="font-family: 'Segoe UI', Arial, sans-serif; color: #2d3436; max-width: 900px; margin: auto; line-height: 1.7;">
 
-<div class="page">
-
-<div class="hero">
-  <h1>Starter Kit — Seed Submission</h1>
-  <p>A working baseline to get you started. Copy, improve, and submit.</p>
+<!-- LOGOS -->
+<div style="display: flex; align-items: center; justify-content: center; gap: 36px; flex-wrap: wrap; padding: 24px 20px; border-bottom: 1px solid #e0eaf2; margin-bottom: 28px;">
+  <a href="http://dataia.eu/" target="_blank" style="text-decoration: none; display: flex; align-items: center; height: 60px; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">
+    <img src="https://raw.githubusercontent.com/w-h02/template_codabench/main/DATAIA-h.png" alt="Institut DATAIA - Université Paris-Saclay" style="height: 60px; display: block; object-fit: contain; background: white;">
+  </a>
+  <a href="https://www.polytechnique.edu/" target="_blank" style="text-decoration: none; display: flex; align-items: center; height: 60px; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">
+    <img src="https://raw.githubusercontent.com/w-h02/template_codabench/main/%C3%89cole_polytechnique_signature.svg.png" alt="École Polytechnique" style="height: 60px; display: block; object-fit: contain; background: white; padding: 4px 10px;">
+  </a>
 </div>
 
-<div class="section">
-  <h2>Why feature extraction is needed</h2>
-  <p>
-    Each crystal in X has a <b>different number of atoms</b>, so X is a ragged array.
-    Standard sklearn models require fixed-size inputs — you need to extract a feature vector of constant length from each crystal before fitting.
-  </p>
-  <div class="idea-grid">
-    <div class="idea-card"><strong>Geometric features</strong>Number of atoms, bounding box, centroid distances, spread of positions</div>
-    <div class="idea-card"><strong>Chemical features</strong>Atomic numbers Z, element counts, mean / std of Z values</div>
-    <div class="idea-card"><strong>Pairwise features</strong>Min / mean / max interatomic distances, coordination statistics</div>
-    <div class="idea-card"><strong>Graph / GNN features</strong>Model the crystal as a graph — stronger but more complex</div>
+<!-- WELCOME -->
+<div style="font-size: 1.01em; color: #2d3436; margin-bottom: 32px; padding: 0 4px;">
+  This page provides a <strong>fully functional starter kit</strong> to get you up and running immediately.
+  The baseline submission below is designed to help you understand the data format and submission pipeline —
+  copy it, experiment, and improve.
+</div>
+
+<!-- OVERVIEW -->
+<h2 style="font-size: 1.45em; font-weight: 700; color: #111; border-bottom: 2px solid #e0eaf2; padding-bottom: 6px; margin: 36px 0 16px 0;">Overview</h2>
+
+<p style="margin: 0 0 14px 0; font-size: 0.98em; color: #3a3a3a;">
+  The key challenge of this competition is that crystal structures have a <strong>variable number of atoms</strong>.
+  Standard machine learning models (sklearn, XGBoost, neural networks with fixed input layers) require
+  vectors of constant size. You therefore need to <strong>extract fixed-size features</strong> from each
+  crystal before fitting any model.
+</p>
+<p style="margin: 0 0 14px 0; font-size: 0.98em; color: #3a3a3a;">
+  The baseline below implements a simple hand-crafted feature extractor using geometric and chemical
+  statistics. It is intentionally simple — a strong starting point to understand the pipeline
+  before exploring more powerful approaches.
+</p>
+
+<!-- CONTEXT -->
+<h2 style="font-size: 1.45em; font-weight: 700; color: #111; border-bottom: 2px solid #e0eaf2; padding-bottom: 6px; margin: 36px 0 16px 0;">Context — Why feature extraction?</h2>
+
+<p style="margin: 0 0 14px 0; font-size: 0.98em; color: #3a3a3a;">
+  Each crystal in <code style="background: #dceefb; padding: 1px 5px; border-radius: 3px;">X</code> is an array of shape <code style="background: #dceefb; padding: 1px 5px; border-radius: 3px;">(n_atoms,)</code> — the number of atoms
+  varies from structure to structure. A crystal with 4 atoms and another with 128 atoms cannot be fed
+  directly into the same model without first summarizing them into a common representation.
+</p>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0;">
+  <div style="background: #f8fbff; border: 1px solid #d0e4f5; border-radius: 8px; padding: 14px 16px; font-size: 0.92em;">
+    <strong style="color: #0a3d62; display: block; margin-bottom: 4px;">Geometric features</strong>
+    Number of atoms, centroid, bounding box, mean distance to center, positional spread
+  </div>
+  <div style="background: #f8fbff; border: 1px solid #d0e4f5; border-radius: 8px; padding: 14px 16px; font-size: 0.92em;">
+    <strong style="color: #0a3d62; display: block; margin-bottom: 4px;">Chemical features</strong>
+    Mean and std of atomic number Z, element counts, electronegativity statistics
+  </div>
+  <div style="background: #f8fbff; border: 1px solid #d0e4f5; border-radius: 8px; padding: 14px 16px; font-size: 0.92em;">
+    <strong style="color: #0a3d62; display: block; margin-bottom: 4px;">Pairwise features</strong>
+    Min / mean / max interatomic distances, coordination numbers, radial distribution
+  </div>
+  <div style="background: #f8fbff; border: 1px solid #d0e4f5; border-radius: 8px; padding: 14px 16px; font-size: 0.92em;">
+    <strong style="color: #0a3d62; display: block; margin-bottom: 4px;">Graph / GNN features</strong>
+    Model the crystal as a graph (atoms = nodes, bonds = edges) — end-to-end learning
   </div>
 </div>
 
-<div class="section">
-  <h2>Baseline submission.py</h2>
+<!-- IDEAS TO IMPROVE -->
+<h2 style="font-size: 1.45em; font-weight: 700; color: #111; border-bottom: 2px solid #e0eaf2; padding-bottom: 6px; margin: 36px 0 16px 0;">Structure — Ideas to improve</h2>
 
-  <div class="code-block">
-    <div class="code-header">submission.py</div>
-<pre>
-import numpy as np
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.pipeline import Pipeline
-
-
-class RaggedFeatureExtractor(BaseEstimator, TransformerMixin):
-    """Extract fixed-size features from variable-size crystal structures."""
-
-    def fit(self, X, y=None):
-        return self
-
-    def transform(self, X):
-        features = []
-        for crystal in X:
-            coords = np.array(crystal['coords'])  # (n_atoms, 3)
-            Z      = np.array(crystal['Z'])        # (n_atoms,)
-            n      = len(coords)
-
-            centroid  = coords.mean(axis=0)
-            distances = np.linalg.norm(coords - centroid, axis=1)
-
-            feat = np.concatenate([
-                [n],                       # number of atoms
-                coords.mean(axis=0),       # center of mass
-                coords.std(axis=0),        # positional spread
-                [distances.mean(),         # mean dist to centroid
-                 distances.std()],         # std dist to centroid
-                [Z.mean(), Z.std(),        # atomic number stats
-                 Z.min(),  Z.max()],
-            ])
-            features.append(feat)
-        return np.array(features)
-
-
-def get_model():
-    return Pipeline([
-        ("features",  RaggedFeatureExtractor()),
-        ("regressor", RandomForestRegressor(n_estimators=100, random_state=42)),
-    ])
-</pre>
-  </div>
+<div style="background: #f0fdf4; border: 1px solid #a9dfbf; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; font-size: 0.94em; display: flex; gap: 12px; align-items: flex-start;">
+  <span style="font-size: 1.1em; flex-shrink: 0; margin-top: 2px; color: #1e8449; font-weight: bold;">+</span>
+  <div><strong style="color: #1e8449;">Better features:</strong> Add pairwise distance histograms, Coulomb matrix eigenvalues,
+  or element-specific one-hot counts. The Coulomb matrix [1] is a well-known fixed-size representation
+  of molecular geometry.</div>
+</div>
+<div style="background: #f0fdf4; border: 1px solid #a9dfbf; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; font-size: 0.94em; display: flex; gap: 12px; align-items: flex-start;">
+  <span style="font-size: 1.1em; flex-shrink: 0; margin-top: 2px; color: #1e8449; font-weight: bold;">+</span>
+  <div><strong style="color: #1e8449;">Better model:</strong> Try XGBoost, LightGBM, or a multi-layer neural network on top of
+  your hand-crafted features. These often outperform Random Forests on tabular chemistry data.</div>
+</div>
+<div style="background: #f0fdf4; border: 1px solid #a9dfbf; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; font-size: 0.94em; display: flex; gap: 12px; align-items: flex-start;">
+  <span style="font-size: 1.1em; flex-shrink: 0; margin-top: 2px; color: #1e8449; font-weight: bold;">+</span>
+  <div><strong style="color: #1e8449;">Graph models:</strong> Represent each crystal as a graph where atoms are nodes and
+  bonds/neighbors are edges. Graph Neural Networks (GNNs) such as MEGNet [2] or CGCNN [3] are
+  state-of-the-art for crystal property prediction.</div>
 </div>
 
-<div class="section">
-  <h2>Ideas to improve</h2>
-  <div class="tip"><strong>Better features:</strong> Add pairwise distance histograms, Coulomb matrices, or element-specific one-hot counts.</div>
-  <div class="tip"><strong>Better model:</strong> Try XGBoost, LightGBM, or a neural network on top of the extracted features.</div>
-  <div class="tip"><strong>Graph models:</strong> Represent each crystal as a graph (atoms = nodes, bonds = edges) and use a GNN for direct end-to-end learning.</div>
+<div style="background: #fff8e1; border-left: 4px solid #f39c12; border-radius: 6px; padding: 12px 16px; font-size: 0.92em; color: #7d6608; margin: 12px 0;">
+  <strong>Tip:</strong> The scoring is based solely on the output of <code style="background: #ffe8a0; padding: 1px 5px; border-radius: 3px;">get_model()</code>.
+  You can import any library available in the environment. The model is trained and tested
+  automatically by the ingestion program — no need to handle train/test splitting yourself.
 </div>
 
 </div>

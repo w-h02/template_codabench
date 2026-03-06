@@ -1,5 +1,5 @@
 version: 2
-title: Prédiction de l'Énergie de Formation pour la Découverte de Nouveaux Matériaux
+title: Prédiction de l'Énergie de Formation pour la Découverte de Nouveaux Matériaux - DATACAMP 2025
 description: >
   Predict the formation energy (Ef) of crystal structures from the 3D positions
   of their atoms. A material is stable when Ef is negative and low.
@@ -36,8 +36,8 @@ solutions:
 phases:
   - name: Development Phase
     description: 'Development phase: tune your models on training data and evaluate them on the public test set.'
-    start: 03-08-2026
-    end: 09-31-2026
+    start: 03-01-2026
+    end: 09-30-2026
     tasks:
       - 0
 
