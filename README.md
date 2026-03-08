@@ -29,7 +29,6 @@ Traditionally, Ef is computed via **DFT (Density Functional Theory)** — highly
 
 | Name | GitHub |
 |---|---|
-
 | BAMOU Ilyass | [@IlyassBamou](https://github.com/IlyassBamou) |
 | HAOUAMI Wissal | [@w-h02](https://github.com/w-h02) |
 | HADJ TAIEB Mahdi | [@mahdiht](https://github.com/mahdiht) |

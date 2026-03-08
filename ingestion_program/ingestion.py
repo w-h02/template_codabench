@@ -3,92 +3,80 @@ import sys
 import time
 from pathlib import Path
 import numpy as np
-import pandas as pd
-
 
 EVAL_SETS = ["test", "private_test"]
 
 
-def evaluate_model(model, X_test):
-
-    y_pred = model.predict(X_test)
-    return y_pred # On retourne l'array numpy directement
-
-
 def get_train_data(data_dir):
-    data_dir = Path(data_dir)
-    X_train = np.load(data_dir / "X_train.npy", allow_pickle=True)
-    y_train = np.load(data_dir / "y_train.npy", allow_pickle=True)
+    """Load training features and labels."""
+    training_dir = data_dir / "train"
+    X_train = np.load(training_dir / "X_train.npy", allow_pickle=True)
+    y_train = np.load(training_dir / "y_train.npy", allow_pickle=True)
     return X_train, y_train
 
 
+def evaluate_model(model, X_test):
+    """Return model predictions for a given test set."""
+    return model.predict(X_test)
+
+
 def main(data_dir, output_dir):
-    # Here, you can import info from the submission module, to evaluate the
-    # submission
     from submission import get_model
 
+    # Load training data
+    print("Loading training data...")
     X_train, y_train = get_train_data(data_dir)
+    print(f"  X_train: {X_train.shape}  y_train: {y_train.shape}")
 
-    print("Training the model")
-
+    # Train
+    print("Training the model...")
     model = get_model()
-
     start = time.time()
     model.fit(X_train, y_train)
     train_time = time.time() - start
+    print(f"  Training done in {train_time:.2f}s")
+
+    # Predict on all eval sets
     print("-" * 10)
-    print("Evaluate the model")
-    start = time.time()
+    print("Evaluating the model...")
     res = {}
+    start = time.time()
     for eval_set in EVAL_SETS:
-        # Chargement des fichiers X_test.npy et X_private_test.npy
-        X_test_path = data_dir / f"X_{eval_set}.npy"
+        X_test_path = data_dir / eval_set / f"X_{eval_set}.npy"
         X_test = np.load(X_test_path, allow_pickle=True)
         res[eval_set] = evaluate_model(model, X_test)
+        print(f"  -> '{eval_set}' predicted  shape={res[eval_set].shape}")
     test_time = time.time() - start
-    print("-" * 10)
-    duration = train_time + test_time
-    print(f"Completed Prediction. Total duration: {duration}")
 
-    # Write output files
+    duration = train_time + test_time
+    print(f"Completed prediction. Total duration: {duration:.2f}s")
+
+    # Write outputs
     output_dir.mkdir(parents=True, exist_ok=True)
+
     with open(output_dir / "metadata.json", "w+") as f:
         json.dump(dict(train_time=train_time, test_time=test_time), f)
-    # Sauvegarde des prédictions en .csv pour le scoring_program
-    for eval_set in EVAL_SETS:
-        filepath = output_dir / f"{eval_set}_predictions.csv"
-        pd.DataFrame(res[eval_set]).to_csv(filepath, index=False)
+
+    for eval_set, preds in res.items():
+        filepath = output_dir / f"{eval_set}_predictions.npy"
+        np.save(filepath, preds)
+
     print()
-    print("Ingestion Program finished. Moving on to scoring")
+    print("Ingestion Program finished. Moving on to scoring.")
 
 
 if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Ingestion program for codabench"
+        description="Ingestion program for Codabench"
     )
-    parser.add_argument(
-        "--data-dir",
-        type=str,
-        default="/app/input_data",
-        help="",
-    )
-    parser.add_argument(
-        "--output-dir",
-        type=str,
-        default="/app/output",
-        help="",
-    )
-    parser.add_argument(
-        "--submission-dir",
-        type=str,
-        default="/app/ingested_program",
-        help="",
-    )
-
+    parser.add_argument("--data-dir",       type=str, default="/app/input_data")
+    parser.add_argument("--output-dir",     type=str, default="/app/output")
+    parser.add_argument("--submission-dir", type=str, default="/app/ingested_program")
     args = parser.parse_args()
+
     sys.path.append(args.submission_dir)
-    sys.path.append(Path(__file__).parent.resolve())
+    sys.path.append(str(Path(__file__).parent.resolve()))
 
     main(Path(args.data_dir), Path(args.output_dir))

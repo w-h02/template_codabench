@@ -1,13 +1,11 @@
 <div style="font-family: 'Segoe UI', Arial, sans-serif; color: #2d3436; max-width: 900px; margin: auto; line-height: 1.7;">
 
 <!-- LOGOS -->
-<div style="display: flex; align-items: center; justify-content: center; gap: 36px; flex-wrap: wrap; padding: 24px 20px; border-bottom: 1px solid #e0eaf2; margin-bottom: 28px;">
-  <a href="http://dataia.eu/" target="_blank" style="text-decoration: none; display: flex; align-items: center; height: 90px; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">
-    <img src="https://raw.githubusercontent.com/w-h02/template_codabench/main/DATAIA-h.png" alt="Institut DATAIA - Université Paris-Saclay" style="height: 90px; display: block; object-fit: contain; background: white;">
-  </a>
-  <a href="https://www.polytechnique.edu/" target="_blank" style="text-decoration: none; display: flex; align-items: center; height: 90px; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">
-    <img src="https://raw.githubusercontent.com/w-h02/template_codabench/main/%C3%89cole_polytechnique_signature.svg.png" alt="École Polytechnique" style="height: 90px; display: block; object-fit: contain; background: white; padding: 6px 14px;">
-  </a>
+<div style="text-align: center;">
+    <a href="https://www.hi-paris.fr/">
+        <img border="0" src="https://www.hi-paris.fr/wp-content/uploads/2020/09/logo-hi-paris-retina.png" width="25%"></a>
+    <a href="https://www.dataia.eu/">
+        <img border="0" src="https://github.com/ramp-kits/template-kit/raw/main/img/DATAIA-h.png" width="70%"></a>
 </div>
 
 <!-- WELCOME -->

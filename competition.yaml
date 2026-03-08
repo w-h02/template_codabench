@@ -6,7 +6,7 @@ description: >
   The goal is to replace DFT (slow quantum simulation) with an AI model
   capable of predicting this energy in milliseconds.
 image: logo.png
-registration_auto_approve: False  # if True, do not require approval from admin to join the comp
+registration_auto_approve: False
 
 terms: pages/terms.md
 pages:
@@ -21,6 +21,7 @@ tasks:
   - index: 0
     name: Development Task
     description: 'Train a regression model on crystal structures (3D atomic positions) to predict their formation energy (eV/atom).'
+    docker_image: rayenmansour/crystal-challenge:v3
     input_data: dev_phase/input_data/
     reference_data: dev_phase/reference_data/
     ingestion_program: ingestion_program/
@@ -29,9 +30,8 @@ tasks:
 solutions:
   - index: 0
     tasks:
-    - 0
+      - 0
     path: solution/
-
 
 phases:
   - name: Development Phase
@@ -45,11 +45,11 @@ leaderboards:
   - title: Results
     key: main
     columns:
-      - title: Test MAE (eV/atome)
+      - title: Test MAE (eV/atom)
         key: test
         index: 0
         sorting: asc
-      - title: Private Test MAE (eV/atome)
+      - title: Private Test MAE (eV/atom)
         key: private_test
         index: 1
         sorting: asc
@@ -57,8 +57,8 @@ leaderboards:
       - title: Train time
         key: train_time
         index: 2
-        sorting: desc
+        sorting: asc
       - title: Test time
         key: test_time
         index: 3
-        sorting: desc
+        sorting: asc

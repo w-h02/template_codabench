@@ -12,8 +12,6 @@ PHASE_DATA = ROOT_DIR / "dev_phase"
 BUNDLE_FILES = [
     ROOT_DIR / "competition.yaml",
     ROOT_DIR / "logo.png",
-    ROOT_DIR / "DATAIA-h.png",
-    ROOT_DIR / "École_polytechnique_signature.svg.png",
     ROOT_DIR / "solution/submission.py",
 ]
 
